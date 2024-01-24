@@ -14,7 +14,7 @@ public class ArrowShot : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        //PullInteraction.PullActionReleased += Release;
+        PullInteraction.PullActionReleased += Release;
 
         Stop();
     }
@@ -30,7 +30,7 @@ public class ArrowShot : MonoBehaviour
     // Release to shoot the arrow
     private void Release(float value)
     {
-        //PullInteraction.PullActionReleased -= Release;
+        PullInteraction.PullActionReleased -= Release;
         gameObject.transform.parent = null;   // Detatch from arrow
         _inAir = true;
         SetPhysics(true);
@@ -67,7 +67,7 @@ public class ArrowShot : MonoBehaviour
     {
         if (Physics.Linecast(_lastPosition,tip.position, out RaycastHit hitInfo))
         {
-            if(hitInfo.transform.gameObject.layer != 8)
+            if(hitInfo.transform.gameObject.layer != 6)
             {
                 if(hitInfo.transform.TryGetComponent(out Rigidbody body))
                 {

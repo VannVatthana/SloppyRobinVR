@@ -11,9 +11,9 @@ public class BowGrab : MonoBehaviour
 
     private GameObject selectedObj;
 
-    void Update()
+    void FixedUpdate()
     {
-        triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, controller);
+        triggerValue = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger, controller);
 
         if(isInCollider)
         { 
