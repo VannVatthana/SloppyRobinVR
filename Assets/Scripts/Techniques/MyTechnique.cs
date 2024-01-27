@@ -49,7 +49,6 @@ public class MyTechnique : InteractionTechnique
             }
         }*/
         currentSelectedObject = arrow.transform.parent.gameObject;
-        Destroy(arrow, 2);
         
         // DO NOT REMOVE
         // If currentSelectedObject is not null, this will send it to the TaskManager for handling
