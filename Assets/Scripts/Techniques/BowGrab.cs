@@ -22,8 +22,6 @@ public class BowGrab : MonoBehaviour
                 isSelected = true;
                 selectedObj.transform.parent = this.transform;
                 Rigidbody rb = selectedObj.GetComponent<Rigidbody>();
-                //rb.isKinematic = true;
-                //rb.useGravity = false;
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
             }
@@ -32,12 +30,9 @@ public class BowGrab : MonoBehaviour
                 isSelected = false;
                 selectedObj.transform.parent = null;
                 Rigidbody rb = selectedObj.GetComponent<Rigidbody>();
-                //rb.isKinematic = false;
-                //rb.useGravity = true;
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
-                //rb.velocity = OVRInput.GetLocalControllerVelocity(controller);
-                //rb.angularVelocity = OVRInput.GetLocalControllerAngularVelocity(controller);
+          
             }
         }
     }
@@ -45,7 +40,7 @@ public class BowGrab : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     { 
         
-        if (other.gameObject.name == "Bow")// || other.gameObject.name == "Notch")
+        if (other.gameObject.name == "Bow")
         { 
             isInCollider = true;
             selectedObj = other.gameObject;
@@ -54,7 +49,7 @@ public class BowGrab : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "Bow")// || other.gameObject.name == "Notch")
+        if (other.gameObject.name == "Bow")
         {
             isInCollider = false;
             selectedObj = null;

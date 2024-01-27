@@ -5,8 +5,7 @@ using UnityEngine;
 public class ArrowShot : MonoBehaviour
 {
     public float speed = 40f;
-    public GameObject tip;
-    //public GameObject arrow;
+    public GameObject arrow;
 
     private Rigidbody _rigidbody;
     private bool _inAir = false;
@@ -33,16 +32,16 @@ public class ArrowShot : MonoBehaviour
     {
         PullInteraction.PullActionReleased -= Release;
         //gameObject.transform.parent = null;   // Detatch from arrow
-        tip.transform.parent = null;
+        arrow.transform.parent = null;
         _inAir = true;
         SetPhysics(true);
 
-        Vector3 force = transform.forward * value * speed;
+        Vector3 force = arrow.transform.forward * value * speed;
         _rigidbody.AddForce(force, ForceMode.Impulse);
 
         StartCoroutine(RotateWithVelocity());
 
-        _lastPosition = tip.transform.position;
+        _lastPosition = arrow.transform.position;
 
 
     }
@@ -61,22 +60,17 @@ public class ArrowShot : MonoBehaviour
         if (_inAir)
         {
             CheckCollision();
-            _lastPosition = tip.transform.position;
+            _lastPosition = arrow.transform.position;
         }
     }
     private void CheckCollision()
     {
-        if (Physics.Linecast(_lastPosition,tip.transform.position, out RaycastHit hitInfo))
+        if (Physics.Linecast(_lastPosition,arrow.transform.position, out RaycastHit hitInfo))
         {
             if(hitInfo.transform.gameObject.layer != 6)
-            {
-                //if(hitInfo.transform.TryGetComponent(out Rigidbody body))
-                //{
-                    _rigidbody.interpolation = RigidbodyInterpolation.None;
-                    //currentSelectedObject = hitInfo.collider.gameObject;
-                    transform.parent = hitInfo.transform;
-
-                //}
+            { 
+                _rigidbody.interpolation = RigidbodyInterpolation.None; 
+                transform.parent = hitInfo.transform;
                 Stop();
             }
         }

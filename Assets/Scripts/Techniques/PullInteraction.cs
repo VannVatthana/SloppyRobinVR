@@ -6,10 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 
 public class PullInteraction : XRBaseInteractable
-{
-    //public OVRInput.Controller controllerRInput;
-    //public GameObject controllerR;
-    
+{   
     public static event Action<float> PullActionReleased;
 
     public Transform start, end;
@@ -30,24 +27,6 @@ public class PullInteraction : XRBaseInteractable
     {
         pullingInteractor = args.interactorObject;
     }
-    /*void Update()
-    {
-        triggerValue = OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger, controllerRInput);
-        if (triggerValue > 0.95f)  // Trigger
-        {
-            Vector3 pullPosition = controllerR.transform.position;
-            pullAmount = CalculatePull(pullPosition);
-            //notch.transform.localPosition = new Vector3(notch.transform.localPosition.x, notch.transform.localPosition.y, 0f);
-            UpdateString();
-        }
-        else if(triggerValue < 0.95f) // Release
-        {
-            PullActionReleased?.Invoke(pullAmount);
-            pullAmount = 0f;
-            notch.transform.localPosition = new Vector3(notch.transform.localPosition.x, notch.transform.localPosition.y, 0f);
-            UpdateString(); // Bow String, not char 
-        }
-    }*/
 
     public void Release()
     {
@@ -57,14 +36,6 @@ public class PullInteraction : XRBaseInteractable
         notch.transform.localPosition = new Vector3(notch.transform.localPosition.x, notch.transform.localPosition.y, 0f);
         UpdateString(); // Bow String, not char 
     }
-
-    /*void Pull()
-    {
-        Vector3 pullPosition = Vector3.zero;
-        pullAmount = CalculatePull(pullPosition);
-        notch.transform.localPosition = new Vector3(notch.transform.localPosition.x, notch.transform.localPosition.y, 0f);
-        UpdateString();
-    }*/
 
     public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
     {

@@ -8,13 +8,21 @@ public class MyTechnique : InteractionTechnique
     // You must implement your technique in this file
     // You need to assign the selected Object to the currentSelectedObject variable
     // Then it will be sent through a UnityEvent to another class for handling
+    
     /*public float speed = 40f;
+    
     public GameObject arrow;
+    //public GameObject notch;
 
+    //private bool arrowNotchPulled = false;
+    //private GameObject currentArrow = null;
+    //private GameObject arrowShot = null;
+
+    //private GameObject arrowInstantiated;
     private Rigidbody _rigidbody;
     private bool _inAir = false;
     private Vector3 _lastPosition = Vector3.zero;
-
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -27,49 +35,32 @@ public class MyTechnique : InteractionTechnique
         PullInteraction.PullActionReleased -= Release;
     }
 
-    /*private void Start()
+    private void OnTriggerExit()
     {
-        // TODO
-        
+        Release(2f);
     }*/
-    public GameObject arrow;
     private void FixedUpdate()
     {
-        //TODO : Select a GameObject and assign it to the currentSelectedObject variable
         /*if (_inAir)
         {
-            RaycastHit hitInfo;
-            bool hasHit = Physics.Linecast(_lastPosition, arrow.transform.position, out hitInfo);
-            if (hasHit && hitInfo.transform.gameObject.layer != 6)
-            {
-                currentSelectedObject = hitInfo.collider.gameObject;
-                _rigidbody.interpolation = RigidbodyInterpolation.None;
-                Destroy(arrow, 2);
-                Stop();
-            }
+            CheckCollision();
         }*/
-        currentSelectedObject = arrow.transform.parent.gameObject;
-        
+        //TODO : Select a GameObject and assign it to the currentSelectedObject variable
+        //CheckCollision();
         // DO NOT REMOVE
         // If currentSelectedObject is not null, this will send it to the TaskManager for handling
         // Then it will set currentSelectedObject back to null
         base.CheckForSelection();
     }
-
-    /*private void OnTriggerExit()
-    {
-        Release(2f);
-    }
-    // Release to shoot the arrow
-    private void Release(float value)
+   /* private void Release(float value)
     {
         PullInteraction.PullActionReleased -= Release;
         //gameObject.transform.parent = null;   // Detatch from arrow
-        arrow.transform.SetParent(null);// .parent = null;
+        arrow.transform.parent = null;
         _inAir = true;
         SetPhysics(true);
 
-        Vector3 force = transform.forward * value * speed;
+        Vector3 force = arrow.transform.forward * value * speed;
         _rigidbody.AddForce(force, ForceMode.Impulse);
 
         StartCoroutine(RotateWithVelocity());
@@ -88,19 +79,22 @@ public class MyTechnique : InteractionTechnique
             yield return null;
         }
     }
- 
-    /*private void CheckCollision()
+    /*private void FixedUpdate()
+    {
+        if (_inAir)
+        {
+            CheckCollision();
+            _lastPosition = arrow.transform.position;
+        }
+    }
+    private void CheckCollision()
     {
         if (Physics.Linecast(_lastPosition, arrow.transform.position, out RaycastHit hitInfo))
         {
             if (hitInfo.transform.gameObject.layer != 6)
             {
-                //if(hitInfo.transform.TryGetComponent(out Rigidbody body))
-                //{
                 _rigidbody.interpolation = RigidbodyInterpolation.None;
                 //transform.parent = hitInfo.transform;
-
-                //}
                 Stop();
             }
         }
@@ -116,4 +110,6 @@ public class MyTechnique : InteractionTechnique
         _rigidbody.useGravity = usePhysics;
         _rigidbody.isKinematic = !usePhysics;
     }*/
+
+
 }
