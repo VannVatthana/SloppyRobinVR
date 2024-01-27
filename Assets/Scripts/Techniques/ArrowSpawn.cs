@@ -6,30 +6,33 @@ public class ArrowSpawn : MonoBehaviour
 {
     public GameObject arrow;
     public GameObject notch;
-
-    private XRGrabInteractable bow;
-    private bool arrowNotchPulled = false;
+    
+    //private XRGrabInteractable bow;
+    //private bool arrowNotchPulled = false;
     private GameObject currentArrow = null;
 
     void Start()
     {
-        bow = GetComponent<XRGrabInteractable>();
+        //bow = GetComponent<XRGrabInteractable>();
         PullInteraction.PullActionReleased += NotchEmpty;
     }
 
     private void OnDestroy()
+
     {
         PullInteraction.PullActionReleased -= NotchEmpty;
     }
 
     void Update()
     {
-        if(bow.isSelected && arrowNotchPulled == false)
+        //if(bow.isSelected && arrowNotchPulled == false)
+        if(currentArrow == null)
         {
-            arrowNotchPulled = true;
+            //arrowNotchPulled = true;
             StartCoroutine("DelayedSpawn");
         }
-        if (!bow.isSelected && currentArrow == null)
+        //if (!bow.isSelected && currentArrow == null)
+        if(currentArrow == null)
         {
             Destroy(currentArrow);
             NotchEmpty(0.5f);
@@ -38,7 +41,7 @@ public class ArrowSpawn : MonoBehaviour
 
     private void NotchEmpty(float value)
     {
-        arrowNotchPulled = false;
+        //arrowNotchPulled = false;
         currentArrow = null;
     }
 

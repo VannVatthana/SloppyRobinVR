@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class ArrowShot : MonoBehaviour
 {
-    public float speed = 10f;
-    public Transform tip;
+    public float speed = 40f;
+    public GameObject tip;
+    //public GameObject arrow;
 
     private Rigidbody _rigidbody;
     private bool _inAir = false;
@@ -31,7 +32,8 @@ public class ArrowShot : MonoBehaviour
     private void Release(float value)
     {
         PullInteraction.PullActionReleased -= Release;
-        gameObject.transform.parent = null;   // Detatch from arrow
+        //gameObject.transform.parent = null;   // Detatch from arrow
+        tip.transform.parent = null;
         _inAir = true;
         SetPhysics(true);
 
@@ -40,11 +42,10 @@ public class ArrowShot : MonoBehaviour
 
         StartCoroutine(RotateWithVelocity());
 
-        _lastPosition = tip.position;
+        _lastPosition = tip.transform.position;
 
 
     }
-
     private IEnumerator RotateWithVelocity()
     {
         yield return new WaitForFixedUpdate();
@@ -60,21 +61,22 @@ public class ArrowShot : MonoBehaviour
         if (_inAir)
         {
             CheckCollision();
-            _lastPosition = tip.position;
+            _lastPosition = tip.transform.position;
         }
     }
     private void CheckCollision()
     {
-        if (Physics.Linecast(_lastPosition,tip.position, out RaycastHit hitInfo))
+        if (Physics.Linecast(_lastPosition,tip.transform.position, out RaycastHit hitInfo))
         {
             if(hitInfo.transform.gameObject.layer != 6)
             {
-                if(hitInfo.transform.TryGetComponent(out Rigidbody body))
-                {
+                //if(hitInfo.transform.TryGetComponent(out Rigidbody body))
+                //{
                     _rigidbody.interpolation = RigidbodyInterpolation.None;
+                    //currentSelectedObject = hitInfo.collider.gameObject;
                     transform.parent = hitInfo.transform;
-                    //body.AddForce(_rigidbody.velocity, ForceMode.Impulse);
-                }
+
+                //}
                 Stop();
             }
         }

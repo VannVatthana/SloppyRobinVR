@@ -29,7 +29,7 @@ public class RaycastTechnique : InteractionTechnique
         bool hasHit = Physics.Raycast(rightControllerTransform.position, rightControllerTransform.forward, out hit, Mathf.Infinity);
 
         // Checking that the user pushed the trigger
-        if (OVRInput.Get(OVRInput.Axis1D.PrimaryIndexTrigger) > 0.1f && hasHit)
+        if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0.1f && hasHit)
         {
             // Sending the selected object hit by the raycast
             currentSelectedObject = hit.collider.gameObject;
