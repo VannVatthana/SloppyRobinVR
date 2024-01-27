@@ -7,7 +7,6 @@ public class ArrowSpawn : MonoBehaviour
     public GameObject arrow;
     public GameObject notch;
 
-    //private bool arrowNotchPulled = false;
     private GameObject currentArrow = null;
 
     void Start()
