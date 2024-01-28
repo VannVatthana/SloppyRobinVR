@@ -13,11 +13,10 @@ public class PullInteraction : XRBaseInteractable
     public GameObject notch;
     public float pullAmount { get; private set; } = 0.0f;
 
-    //private float triggerValue;
     private LineRenderer _lineRenderer;
     private IXRSelectInteractor pullingInteractor = null;
 
-    protected override void Awake() //override
+    protected override void Awake()
     {
         base.Awake();
         _lineRenderer = GetComponent<LineRenderer>();

@@ -25,15 +25,6 @@ public class MyTechnique : InteractionTechnique
 
         Stop();
     }
-    private void OnDestroy()
-    {
-        PullInteraction.PullActionReleased -= Release;
-    }
-
-    private void OnTriggerExit()
-    {
-        Release(2f);
-    }
     private void FixedUpdate()
     {
         
@@ -42,13 +33,12 @@ public class MyTechnique : InteractionTechnique
             CheckCollision();
             _lastPosition = arrow.transform.position;
         }
-        /*else
+        else
         {
-            //GameObject notch = GameObject.Find("Notch");
-            arrow.transform.parent = notch.transform;
-            arrow.transform.localPosition = Vector3.zero;//notch.transform.position;
-            arrow.transform.localRotation = Quaternion.Euler(Vector3.zero);//notch.transform.rotation;
-        }*/
+            arrow.transform.SetParent(notch.transform);
+            arrow.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero)) ;
+            //arrow.transform.SetPositionAndRotation(notch.transform.position, notch.transform.rotation);
+        }
         // DO NOT REMOVE
         // If currentSelectedObject is not null, this will send it to the TaskManager for handling
         // Then it will set currentSelectedObject back to null
@@ -56,20 +46,18 @@ public class MyTechnique : InteractionTechnique
     }
     private void Release(float value)
     {
-        PullInteraction.PullActionReleased -= Release;
+        //PullInteraction.PullActionReleased -= Release;   // Makes arrow unable to release at the second time
         // Detatch from arrow
         if(arrow.transform.parent == notch.transform)
             arrow.transform.parent = null;
         _inAir = true;
         SetPhysics(true);
-        GameObject arrow1 = arrow;
         Vector3 force = arrow.transform.forward * value * speed;
         _rigidbody.AddForce(force, ForceMode.Impulse);
 
         StartCoroutine(RotateWithVelocity());
 
         _lastPosition = arrow.transform.position;
-        //}
     }
     private IEnumerator RotateWithVelocity()
     {
@@ -90,14 +78,11 @@ public class MyTechnique : InteractionTechnique
                 _rigidbody.interpolation = RigidbodyInterpolation.None;
                 currentSelectedObject = hitInfo.collider.gameObject;
                 Stop();
-                Destroy(arrow, 2);
-                new WaitForSeconds(2f);
-                arrow = Instantiate(arrowPrefab, notch.transform);//.transform.SetParent(notch.transform);
-                //arrow.transform.localPosition = Vector3.zero;
-                //arrow.transform.localRotation = Quaternion.Euler(Vector3.zero);
-                //arrow.transform.position = notch.transform.position;
-                //arrow.transform.rotation = notch.transform.rotation; //Quaternion.Euler(Vector3.zero);
             }
+        }
+        else
+        {
+            StartCoroutine(DeactivatePhysics(5f));
         }
     }
     private void Stop()
@@ -111,6 +96,10 @@ public class MyTechnique : InteractionTechnique
         _rigidbody.useGravity = usePhysics;
         _rigidbody.isKinematic = !usePhysics;
     }
-
+    IEnumerator DeactivatePhysics(float delaySeconds)
+    {
+        yield return new WaitForSeconds(delaySeconds);
+        Stop();
+    }
 
 }
