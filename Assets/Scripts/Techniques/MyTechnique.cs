@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+
 // Your implemented technique inherits the InteractionTechnique class
 public class MyTechnique : InteractionTechnique
 {
@@ -11,23 +11,26 @@ public class MyTechnique : InteractionTechnique
     public float speed = 40f;
 
     public GameObject arrow;
-    public GameObject arrowPrefab;
     public GameObject notch;
 
     private Rigidbody _rigidbody;
     private bool _inAir = false;
     private Vector3 _lastPosition = Vector3.zero;
     
+    public OVRInput.Controller rightController;
+    public Transform cameraRig;
+
     private void Awake()
     {
         _rigidbody = arrow.GetComponent<Rigidbody>();
-        PullInteraction.PullActionReleased += Release;
+        PullString.PullActionReleased += Release;
 
         Stop();
     }
     private void FixedUpdate()
     {
-        
+        MoveAround();
+
         if (_inAir)
         {
             CheckCollision();
@@ -37,7 +40,6 @@ public class MyTechnique : InteractionTechnique
         {
             arrow.transform.SetParent(notch.transform);
             arrow.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(Vector3.zero)) ;
-            //arrow.transform.SetPositionAndRotation(notch.transform.position, notch.transform.rotation);
         }
         // DO NOT REMOVE
         // If currentSelectedObject is not null, this will send it to the TaskManager for handling
@@ -46,13 +48,14 @@ public class MyTechnique : InteractionTechnique
     }
     private void Release(float value)
     {
-        //PullInteraction.PullActionReleased -= Release;   // Makes arrow unable to release at the second time
+        //PullString.PullActionReleased -= Release;   // Makes arrow unable to release at the second time
         // Detatch from arrow
         if(arrow.transform.parent == notch.transform)
             arrow.transform.parent = null;
         _inAir = true;
         SetPhysics(true);
-        Vector3 force = arrow.transform.forward * value * speed;
+        GameObject arrow1 = arrow;
+        Vector3 force = arrow1.transform.forward * value * speed;
         _rigidbody.AddForce(force, ForceMode.Impulse);
 
         StartCoroutine(RotateWithVelocity());
@@ -102,4 +105,15 @@ public class MyTechnique : InteractionTechnique
         Stop();
     }
 
+    void MoveAround()  // Move around 
+    {
+        if (OVRInput.Get(OVRInput.Button.Two))  // Press B to move forward
+            cameraRig.position = cameraRig.position + new Vector3(-3f,0,0);
+        if (OVRInput.Get(OVRInput.Button.One))  // Press A to move backward
+            cameraRig.position = cameraRig.position + new Vector3(3f, 0, 0);
+
+    }
+
+    
+    
 }

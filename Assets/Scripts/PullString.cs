@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 
-public class PullInteraction : XRBaseInteractable
+public class PullString : XRBaseInteractable
 {   
     public static event Action<float> PullActionReleased;
    

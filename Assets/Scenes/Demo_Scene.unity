@@ -47244,6 +47244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 1769337597633466025, guid: 54ba44d4ecd83324991be29cf49b127d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1769337597633466026, guid: 54ba44d4ecd83324991be29cf49b127d, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.4285716
@@ -51954,7 +51958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -71452,8 +71456,9 @@ MonoBehaviour:
         m_CallState: 1
   speed: 40
   arrow: {fileID: 1003147613}
-  arrowPrefab: {fileID: 1769337597633466025, guid: 54ba44d4ecd83324991be29cf49b127d, type: 3}
   notch: {fileID: 190944950}
+  rightController: 2
+  cameraRig: {fileID: 2143560696}
 --- !u!1001 &1537896371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87433,9 +87438,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3701202431252008202, guid: 1b6d9920203cf204ca025db14635a195, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1854955962}
-    - targetCorrespondingSourceObject: {fileID: 3701202431252008202, guid: 1b6d9920203cf204ca025db14635a195, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1854955961}
   m_SourcePrefab: {fileID: 100100000, guid: 1b6d9920203cf204ca025db14635a195, type: 3}
 --- !u!1 &1854955954 stripped
 GameObject:
@@ -87474,20 +87476,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1854955961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1854955954}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25604f5aa9d599b438e948915745e49a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrow: {fileID: 1769337597633466025, guid: 54ba44d4ecd83324991be29cf49b127d, type: 3}
-  notch: {fileID: 190944950}
 --- !u!65 &1854955962
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -101613,6 +101601,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
   m_PrefabInstance: {fileID: 2143098653}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2143560696 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+  m_PrefabInstance: {fileID: 1097607491}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &23056013066933733 stripped
 MeshRenderer:
